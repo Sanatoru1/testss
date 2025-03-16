@@ -1,0 +1,10 @@
+@import "./fonts.css";
+
+body {
+    background-color: #211c1c;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+label {
+    color: #fff;
+}

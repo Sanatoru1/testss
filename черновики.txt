@@ -1,0 +1,169 @@
+
+<-------------------------------------------------------->
+
+
+<-------------------------------------------------------->
+
+import React, { useState } from "react";
+// пример создания изменяемого компонента формы
+function NameForm() {
+    const [name, setName] = useState("");
+    const handleChange = (event) => {
+        setName(event.target.value);
+    };
+    const handleSubmit = (event) => {
+        alert(`Name : ${name}`);
+        event.preventDefult(); //? если написать 'default' правильно, то поле ввода после вывода имени не очищается
+    };
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="">
+                    Name:
+                    <input type="text" value={name} onChange={handleChange} />
+                </label>
+                <button type="submit">jnghdbnm</button>
+            </form>
+        </>
+    );
+}
+
+<-------------------------------------------------------->
+
+import React, { useEffect, useState } from "react";
+
+function Timer() {
+    const [seconds, setSecods] = useState(0);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSecods(prevSeconds => prevSeconds + 1);
+        }, 1000);
+        return () => clearInterval(interval);
+    }) 
+    return (
+        <>
+        <p>Timer: {seconds} second</p>
+        </>
+    )
+}
+
+<-------------------------------------------------------->
+
+import React, { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0) 
+    return(
+        <>
+            <p>counter: {count}</p>
+            <button onClick={() => setCount(count + 1)}>click me</button>
+        </> 
+    )  
+}
+
+<-------------------------------------------------------->
+
+// жизненный цикл компонентов
+import React from 'react';
+
+class Welcome extends React.Component{
+    componentDidMount(){
+        console.log('sss');
+        
+    }
+    render() {
+        return <h1>lorem ipsum</h1>
+    }
+}
+
+
+<-------------------------------------------------------->
+
+// рендер key
+const NameList = () =>{
+    const names =  ['doni' , 'satoshi', 'beka'];
+    return(
+        <ul>
+            {names.map((name, index) => (
+                <li key={index}>{name}</li>
+            ))}
+        </ul>
+    )
+}
+
+<-------------------------------------------------------->
+
+const ProductList = () => {
+    const products = [
+        {id: 1, name: 'Samsung 0', price: '500$'},
+        {id: 2, name: 'Samsung 233', price: '667$'},
+        {id: 3, name: 'Samsung 777', price: '420$'},
+        {id: 4, name: 'Samsung 1610', price: '1010$'},
+    ]
+    return (
+        <ul>
+            {products.map((product => (
+                <li key={product.id}>{product.name} : {product.price}</li>
+            )))}
+        </ul>
+    )
+}
+
+// 
+
+
+
+const NameList = () => {
+    const names = ["Doni", "Dima", "Beka", "Senya"];
+    return (
+        <ul>
+            {names.map((name, index) => (
+                <li key={index}>{name}</li>
+                // в медоте .map() мы разбиваем каждый элемент на имя и индекс, чтобы тот сохранялся в ключе, потом выводим их из массива
+            ))}
+        </ul>
+    );
+};
+
+
+// Условные пропсы 347 1:15
+
+<-------------------------------------------------------->
+
+
+// import { useState } from "react";
+// function Counter(){
+//     const [count, setCount] = useState   // Хук(?) в реакте, изменяющий состояние нужен для изменения состояния компонентов при взаимодейсвтии
+//     return(
+//         <div>
+//             <p>вы нажали {count} раз</p>
+//             <button onClick={() => setCount(count + 1)}>нажми на меня</button>
+//         </div>
+//     )
+// }
+
+// function CustomButton () {
+//     return <button>нажми сюда</button>
+// }
+
+
+<-------------------------------------------------------->
+
+import  { useState } from "react";
+
+const Toggle = () =>{
+    const  [isOn, setIsOn] =  useState(true);
+    return (
+        <button onClick={() => setIsOn(!isOn)}>
+            {isOn ?  'Включено' : "Выключено" }
+        </button>
+            // if isOn = true передаем текст компонента(в этом случае кнопки) и соотвественно наоборот
+        // func isOn будет выставлять false когда кнопка будет нажиматься и в true тоже когда будет нажиматься кнопка
+        // получается в теле кнопки можно написать JS код в {}
+    )
+}
+
+
+const Greeting = (props) => {
+    return <h1>hi {props.name} </h1>
+}
