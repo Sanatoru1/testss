@@ -1,5 +1,190 @@
+<-------------------------------------------------------->
+// пример использования обытий. 
+function  InputHandler() {
+    const  [InputValue, setInputValue] = useState('');
+    const handleChange = (event) => {
+        setInputValue(event.target.value);
+    }
+    return (
+        <>
+            <input type="text" value={InputValue} onChange={handleChange} />
+            <p>Вы ввели {InputValue}</p>
+        </>
+    )
+}
+
 
 <-------------------------------------------------------->
+// обработка события / нажатия кнопки 
+function ClickButton() {
+        const handleclick = () => {
+            console.log('кнопка нажата');
+        }
+        return <button onClick={handleclick}>click me</button>
+}
+
+<-------------------------------------------------------->
+import React, { useState } from "react";
+//* валидация пароля и почты
+function MultiValidation () {
+    // Состояние для хранения значений формы
+    const [formData, setFormData ] = useState({
+        email: '',
+        password: '',
+    });
+
+    // Состояние для хранения ошибок валидации
+    const [errors, setErrors] = useState({});
+
+    // Обработка ввода пользователя
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        // Обновляем соответствующее поле в состоянии формы
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    // Обработка отправки формы
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Отменяем стандартное поведение формы
+
+        const newErrors = {}; // Создаем объект для сбора ошибок
+
+        // Валидация email
+        if (!formData.email.includes('@')) {
+            newErrors.email = 'несуществующая почта'; // Записываем ошибку
+        }
+
+        // Валидация пароля
+        if (formData.password.length < 6) {
+            newErrors.password = 'пароль должен быть не менее 6 символов'; // Записываем ошибку
+        }
+
+        // Если есть ошибки — обновляем состояние ошибок
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+        } else {
+            // Если ошибок нет — очищаем ошибки и выводим сообщение
+            setErrors({});
+            alert('форма отправлена');
+        }
+    };
+
+    return (
+        <>
+            <form onSubmit={handleSubmit} className="forma">
+                <label>
+                    <h2>email:</h2> 
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </label>
+                {/* Показ ошибки под email (🚫 ошибка в комментарии ниже исправлена) */}
+                {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+
+                <label>
+                    <h2>password:</h2>
+                    <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                </label>
+                {/* Показ ошибки под password */}
+                {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+
+                <button type="submit">отправить</button>
+            </form>
+        </>
+    );
+}
+
+
+//* легкая валидация
+// function SimpleValidation() {
+//     const [name, setName ] = useState('');
+//     const [error, setError] = useState('');
+
+//     const handleChange = (event) => {
+//         setName(event.target.value);
+//     }
+
+//     const  handleSubmit = (event) => {
+//         if(!name) {
+//             setError('Имя обязательно')
+//         } else {
+//             setError('');
+//             alert(`Имя: ${name}`);
+//         }
+//         event.preventDefault();
+//     }
+//     return(
+//         <>
+//             <form onSubmit={handleSubmit}>
+//                 <label htmlFor="">
+//                      <p>Name:</p>
+//                     <input type="text" value={name} onChange={handleChange} />
+//                 </label>
+//                 {error && <p style={{color: "red"}}>error</p>}
+//                 <button type="submit">отправить</button>
+//             </form>
+//         </>
+//     )
+// }
+
+ //* обычная форма
+// function MultiForm() {
+//     const [formData, setFormData] = useState({
+//         firstName: "",
+//         lastName: ""
+//     }); 
+
+//     const handleChange = (event) => {
+//         const { name, value } = event.target;
+//         setFormData({ 
+//             ...formData,
+//             [name]: value
+//         });
+//     };
+
+//     const handleSubmit = (event) => {
+//         event.preventDefault();
+//         alert(`Name: ${formData.firstName} ${formData.lastName}`);
+//     };
+
+//     return (
+//         <>
+//             <form onSubmit={handleSubmit}>
+//                 <label>
+//                      <p>Name:</p>
+//                     <input 
+//                         type="text" 
+//                         name="firstName" 
+//                         value={formData.firstName}  
+//                         onChange={handleChange}
+//                     />
+//                 </label>
+//                 <label>
+//                     <p>Last Name:</p>
+//                     <input 
+//                         type="text" 
+//                         name="lastName" 
+//                         value={formData.lastName}  
+//                         onChange={handleChange}
+//                     />
+//                 </label>        
+//                 <button type="submit">Send</button>
+//             </form>
+//         </>
+//     );
+// }
+
 
 
 <-------------------------------------------------------->
